@@ -1,61 +1,54 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ArrowUpRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const projects = [
   {
-    title: "Brand Identity System",
-    description:
-      "A complete visual identity for a fintech startup, including logo, typography, and brand guidelines.",
-    tag: "Branding",
-  },
-  {
-    title: "E-Commerce Platform",
-    description:
-      "Designed and developed a modern shopping experience with seamless checkout and product discovery.",
-    tag: "Web Development",
-  },
-  {
-    title: "Mobile Banking App",
-    description:
-      "A clean, intuitive mobile app focused on simplifying personal finance management.",
-    tag: "Product Design",
+    title: "Kalkulator",
+    tags: ["HTML", "CSS", "JavaScript"],
   },
   {
     title: "Portfolio Website",
-    description:
-      "A minimal, fast portfolio built with React and Tailwind CSS to showcase creative work.",
-    tag: "Web Design",
+    tags: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Data Analysis Dashboard",
+    tags: ["Python", "Excel"],
+  },
+  {
+    title: "Arduino Line Follower",
+    tags: ["C++", "Arduino"],
   },
 ];
 
 const ProjectsSection = () => {
   return (
     <section id="projects" className="section-padding max-w-6xl mx-auto">
-      <h2 className="heading-lg text-foreground mb-16 text-center">Selected Work</h2>
+      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-12 text-center">
+        Projects
+      </h2>
       <div className="grid sm:grid-cols-2 gap-6">
         {projects.map((project) => (
           <Card
             key={project.title}
-            className="group border border-border bg-card hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+            className="bg-card border border-border rounded-2xl hover:shadow-md transition-shadow duration-300"
           >
-            <CardHeader className="pb-2">
-              <div className="flex items-start justify-between">
-                <span className="text-xs uppercase tracking-widest text-muted-foreground">
-                  {project.tag}
-                </span>
-                <ArrowUpRight
-                  size={18}
-                  className="text-muted-foreground group-hover:text-foreground transition-colors"
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="pt-2">
-              <CardTitle className="text-xl font-semibold mb-3 group-hover:text-foreground transition-colors">
+            <CardHeader>
+              <CardTitle className="text-lg font-semibold text-foreground">
                 {project.title}
               </CardTitle>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {project.description}
-              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {project.tags.map((tag) => (
+                  <Badge
+                    key={tag}
+                    variant="secondary"
+                    className="bg-accent text-accent-foreground px-3 py-1 text-xs rounded-md"
+                  >
+                    {tag}
+                  </Badge>
+                ))}
+              </div>
             </CardContent>
           </Card>
         ))}
