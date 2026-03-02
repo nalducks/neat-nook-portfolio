@@ -22,7 +22,10 @@ const Particles = () => {
 
     const PARTICLE_COUNT = 60;
     const CONNECTION_DIST = 120;
-    const primaryColor = [0, 255, 170]; // hsl(160,100%,50%) approx
+    const MOUSE_RADIUS = 150;
+    const MOUSE_FORCE = 0.8;
+    const primaryColor = [0, 255, 170];
+    const mouse = { x: -9999, y: -9999 };
 
     for (let i = 0; i < PARTICLE_COUNT; i++) {
       particles.push({
@@ -34,6 +37,18 @@ const Particles = () => {
         opacity: Math.random() * 0.5 + 0.2,
       });
     }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      mouse.x = e.clientX - rect.left;
+      mouse.y = e.clientY - rect.top;
+    };
+    const handleMouseLeave = () => {
+      mouse.x = -9999;
+      mouse.y = -9999;
+    };
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
@@ -73,16 +88,34 @@ const Particles = () => {
         }
       }
 
-      // Draw particles
+      // Draw particles with mouse interaction
       for (const p of particles) {
+        // Mouse repulsion
+        const mdx = p.x - mouse.x;
+        const mdy = p.y - mouse.y;
+        const mDist = Math.sqrt(mdx * mdx + mdy * mdy);
+        if (mDist < MOUSE_RADIUS && mDist > 0) {
+          const force = (1 - mDist / MOUSE_RADIUS) * MOUSE_FORCE;
+          p.vx += (mdx / mDist) * force;
+          p.vy += (mdy / mDist) * force;
+        }
+
+        // Dampen velocity
+        p.vx *= 0.98;
+        p.vy *= 0.98;
+
         p.x += p.vx;
         p.y += p.vy;
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
+        // Glow near mouse
+        const glowAlpha = mDist < MOUSE_RADIUS ? p.opacity + (1 - mDist / MOUSE_RADIUS) * 0.4 : p.opacity;
+        const glowSize = mDist < MOUSE_RADIUS ? p.size + (1 - mDist / MOUSE_RADIUS) * 2 : p.size;
+
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${primaryColor.join(",")}, ${p.opacity})`;
+        ctx.arc(p.x, p.y, glowSize, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${primaryColor.join(",")}, ${glowAlpha})`;
         ctx.fill();
       }
 
@@ -100,13 +133,15 @@ const Particles = () => {
     return () => {
       cancelAnimationFrame(animationId);
       window.removeEventListener("resize", handleResize);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, []);
 
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none"
+      className="absolute inset-0 w-full h-full"
       style={{ zIndex: 1 }}
     />
   );
