@@ -27,11 +27,16 @@ const Header = () => {
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-        <a href="#home" className="text-xl font-bold tracking-tight text-foreground font-display">
-          <span className="inline-flex items-center gap-1.5">
-            <span className="bg-primary text-primary-foreground w-7 h-7 rounded-md flex items-center justify-center text-sm font-bold">D</span>
-            <span className="text-foreground">DHANY</span>
-            <span className="text-primary">P</span>
+        <a href="#home" className="group text-xl font-bold tracking-tight text-foreground font-display">
+          <span className="inline-flex items-center gap-2">
+            <span className="relative bg-gradient-to-br from-primary to-accent w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold text-primary-foreground shadow-[0_0_12px_hsl(var(--primary)/0.4)] group-hover:shadow-[0_0_20px_hsl(var(--primary)/0.6)] transition-shadow duration-300">
+              D
+              <span className="absolute inset-0 rounded-lg border border-primary/30" />
+            </span>
+            <span className="flex items-baseline gap-0.5">
+              <span className="text-foreground tracking-widest text-base">DHANY</span>
+              <span className="text-primary text-lg font-extrabold">.P</span>
+            </span>
           </span>
         </a>
 
