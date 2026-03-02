@@ -22,24 +22,25 @@ const Header = () => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-background/90 backdrop-blur-xl border-b border-border"
+          ? "glass border-b border-border/50"
           : "bg-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 md:px-12 flex items-center justify-between h-16">
-        <a href="#home" className="text-xl font-bold tracking-tight text-foreground">
-          <span className="inline-flex items-center gap-1">
-            <span className="bg-accent text-accent-foreground w-7 h-7 rounded flex items-center justify-center text-sm font-bold">d</span>
-            DHANYP
+        <a href="#home" className="text-xl font-bold tracking-tight text-foreground font-display">
+          <span className="inline-flex items-center gap-1.5">
+            <span className="bg-primary text-primary-foreground w-7 h-7 rounded-md flex items-center justify-center text-sm font-bold">D</span>
+            <span className="text-foreground">DHANY</span>
+            <span className="text-primary">P</span>
           </span>
         </a>
 
-        <ul className="hidden md:flex items-center gap-2">
+        <ul className="hidden md:flex items-center gap-1">
           {navLinks.map((link) => (
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary transition-all"
+                className="text-sm px-4 py-2 rounded-lg text-muted-foreground hover:text-primary transition-all duration-200"
               >
                 {link.label}
               </a>
@@ -57,14 +58,14 @@ const Header = () => {
       </nav>
 
       {menuOpen && (
-        <div className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border">
+        <div className="md:hidden glass border-b border-border/50">
           <ul className="flex flex-col items-center gap-4 py-6">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-base text-muted-foreground hover:text-foreground transition-colors"
+                  className="text-base text-muted-foreground hover:text-primary transition-colors"
                 >
                   {link.label}
                 </a>
