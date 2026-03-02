@@ -31,9 +31,12 @@ const experiences = [
   },
 ];
 
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
 const ExperienceSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
   return (
-    <section id="experience" className="section-padding max-w-6xl mx-auto">
+    <section id="experience" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
       <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center font-display">
         Experience
       </h2>

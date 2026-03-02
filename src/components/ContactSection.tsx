@@ -1,9 +1,12 @@
 import { Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+
 const ContactSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
   return (
-    <section id="contact" className="section-padding max-w-3xl mx-auto text-center relative">
+    <section id="contact" ref={ref} className={`section-padding max-w-3xl mx-auto text-center relative transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="w-80 h-80 bg-primary/5 rounded-full blur-[100px]" />
       </div>

@@ -1,11 +1,15 @@
 import { Button } from "@/components/ui/button";
 import profilImg from "@/assets/profil.jpg";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const HeroSection = () => {
+  const { ref, isVisible } = useScrollAnimation(0.1);
+
   return (
     <section
       id="home"
-      className="min-h-screen flex flex-col items-center justify-center section-padding text-center pt-24 relative overflow-hidden"
+      ref={ref}
+      className={`min-h-screen flex flex-col items-center justify-center section-padding text-center pt-24 relative overflow-hidden transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >
       {/* Background glow effects */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" />
@@ -13,11 +17,7 @@ const HeroSection = () => {
 
       <div className="relative z-10">
         <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-2 border-primary/30 mb-8 mx-auto glow-box animate-float">
-          <img
-            src={profilImg}
-            alt="Dhany Catur Prasetya"
-            className="w-full h-full object-cover"
-          />
+          <img src={profilImg} alt="Dhany Catur Prasetya" className="w-full h-full object-cover" />
         </div>
 
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-primary font-medium mb-6">
