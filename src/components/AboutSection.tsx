@@ -1,5 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Code, Wrench, Award, GraduationCap, User } from "lucide-react";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const skills = ["Komunikasi", "Analisis", "Kolaborasi", "Kreativitas", "Penyelesaian Masalah"];
 const languages = ["C++", "Python", "CSS", "JavaScript", "HTML"];
@@ -45,8 +46,9 @@ const SectionCard = ({ title, icon, children }: { title: string; icon: React.Rea
 );
 
 const AboutSection = () => {
+  const { ref, isVisible } = useScrollAnimation();
   return (
-    <section id="about" className="section-padding max-w-6xl mx-auto">
+    <section id="about" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
       <div className="text-center mb-12">
         <p className="text-primary text-sm font-medium tracking-widest uppercase mb-2">Get to know me</p>
         <h2 className="text-3xl md:text-4xl font-bold text-foreground font-display">About</h2>
