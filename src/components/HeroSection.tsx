@@ -20,10 +20,16 @@ const Particles = () => {
       x: number; y: number; vx: number; vy: number; size: number; opacity: number;
     }[] = [];
 
+    // Burst particles from clicks
+    const burstParticles: {
+      x: number; y: number; vx: number; vy: number; size: number; opacity: number; life: number;
+    }[] = [];
+
     const PARTICLE_COUNT = 60;
     const CONNECTION_DIST = 120;
     const MOUSE_RADIUS = 150;
     const MOUSE_FORCE = 0.8;
+    const BURST_COUNT = 15;
     const primaryColor = [0, 255, 170];
     const mouse = { x: -9999, y: -9999 };
 
@@ -47,8 +53,26 @@ const Particles = () => {
       mouse.x = -9999;
       mouse.y = -9999;
     };
+    const handleClick = (e: MouseEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const cx = e.clientX - rect.left;
+      const cy = e.clientY - rect.top;
+      for (let i = 0; i < BURST_COUNT; i++) {
+        const angle = (Math.PI * 2 * i) / BURST_COUNT + (Math.random() - 0.5) * 0.5;
+        const speed = Math.random() * 4 + 2;
+        burstParticles.push({
+          x: cx, y: cy,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed,
+          size: Math.random() * 3 + 1.5,
+          opacity: 1,
+          life: 1,
+        });
+      }
+    };
     canvas.addEventListener("mousemove", handleMouseMove);
     canvas.addEventListener("mouseleave", handleMouseLeave);
+    canvas.addEventListener("click", handleClick);
 
     const draw = () => {
       ctx.clearRect(0, 0, width, height);
@@ -119,6 +143,34 @@ const Particles = () => {
         ctx.fill();
       }
 
+      // Draw burst particles
+      for (let i = burstParticles.length - 1; i >= 0; i--) {
+        const bp = burstParticles[i];
+        bp.x += bp.vx;
+        bp.y += bp.vy;
+        bp.vx *= 0.96;
+        bp.vy *= 0.96;
+        bp.life -= 0.02;
+        bp.opacity = bp.life;
+
+        if (bp.life <= 0) {
+          burstParticles.splice(i, 1);
+          continue;
+        }
+
+        // Glow ring
+        ctx.beginPath();
+        ctx.arc(bp.x, bp.y, bp.size * 2, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${primaryColor.join(",")}, ${bp.opacity * 0.15})`;
+        ctx.fill();
+
+        // Core
+        ctx.beginPath();
+        ctx.arc(bp.x, bp.y, bp.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${primaryColor.join(",")}, ${bp.opacity})`;
+        ctx.fill();
+      }
+
       animationId = requestAnimationFrame(draw);
     };
 
@@ -135,6 +187,7 @@ const Particles = () => {
       window.removeEventListener("resize", handleResize);
       canvas.removeEventListener("mousemove", handleMouseMove);
       canvas.removeEventListener("mouseleave", handleMouseLeave);
+      canvas.removeEventListener("click", handleClick);
     };
   }, []);
 
