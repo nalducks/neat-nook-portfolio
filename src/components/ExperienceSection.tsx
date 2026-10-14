@@ -1,6 +1,6 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight, GraduationCap, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { experiences } from "@/data/profile";
+import { education, experiences } from "@/data/profile";
 
 const ExperienceSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.05);
@@ -12,6 +12,17 @@ const ExperienceSection = () => {
           <div><p className="text-xs text-primary mb-3">{exp.duration}</p><h3 className="font-semibold text-lg">{exp.company}</h3><p className="flex gap-1.5 items-center text-xs text-muted-foreground mt-3"><MapPin size={13} />{exp.location}</p>{i === 0 && <span className="inline-flex items-center gap-2 mt-4 text-xs text-primary"><span className="w-1.5 h-1.5 rounded-full bg-primary" />Posisi saat ini</span>}</div>
           <div><h4 className="text-xl font-medium mb-4 flex justify-between gap-3">{exp.position}<ArrowUpRight size={20} className="text-muted-foreground shrink-0 mt-1" /></h4><ul className="space-y-3">{exp.tasks.map(task => <li key={task} className="text-sm text-muted-foreground leading-7 flex gap-3"><span className="text-primary shrink-0">—</span><span>{task}</span></li>)}</ul></div>
         </article>)}
+      </div>
+      <div className="mt-14 md:mt-20">
+        <h3 className="detail-heading"><GraduationCap size={18} /> Pendidikan</h3>
+        <div className="grid md:grid-cols-2 gap-4 md:gap-6 mt-6">
+          {education.map(edu => <div key={edu.title} className="glass rounded-xl p-6 border border-border/60 hover:border-primary/40 transition-colors duration-300">
+            <p className="text-xs text-primary mb-3">{edu.period}</p>
+            <h4 className="text-base font-semibold">{edu.title}</h4>
+            <p className="text-sm text-foreground/80 mt-1">{edu.place}</p>
+            <p className="text-xs leading-6 text-muted-foreground mt-3">{edu.desc}</p>
+          </div>)}
+        </div>
       </div>
     </section>
   );
