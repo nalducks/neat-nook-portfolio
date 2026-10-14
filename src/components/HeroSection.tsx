@@ -2,6 +2,9 @@ import { Button } from "@/components/ui/button";
 import profilImg from "@/assets/profil.jpg";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { useEffect, useRef } from "react";
+import { ArrowDown, ArrowUpRight, Download, MapPin } from "lucide-react";
+import { profile } from "@/data/profile";
+import profileDocument from "@/assets/profile.pdf.asset.json";
 
 const Particles = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -207,44 +210,41 @@ const HeroSection = () => {
     <section
       id="home"
       ref={ref}
-      className={`min-h-screen flex flex-col items-center justify-center section-padding text-center pt-24 relative overflow-hidden transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+      className={`flex flex-col items-center justify-center section-padding text-center pt-28 md:pt-32 relative overflow-hidden transition-all duration-700 motion-reduce:transition-none ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
     >
       {/* Particle grid background */}
       <Particles />
 
-      {/* Background glow effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[120px] animate-pulse-glow" style={{ zIndex: 2 }} />
-      <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-[100px] animate-pulse-glow" style={{ animationDelay: '1.5s', zIndex: 2 }} />
-
       <div className="relative" style={{ zIndex: 10 }}>
-        <div className="w-36 h-36 md:w-44 md:h-44 rounded-full overflow-hidden border-2 border-primary/30 mb-8 mx-auto glow-box animate-float">
+        <div className="w-28 h-28 md:w-36 md:h-36 rounded-full overflow-hidden border-2 border-primary/30 mb-6 mx-auto glow-box">
           <img src={profilImg} alt="Dhany Catur Prasetya" className="w-full h-full object-cover" />
         </div>
 
         <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass text-xs text-primary font-medium mb-6">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          Available for opportunities
+          Elektronika · Informatika · Data
         </div>
 
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-4 leading-tight font-display">
-          Hi, I'm <span className="text-primary glow-text">Dhany</span>
+          Dhany Catur<br /><span className="text-primary">Prasetya.</span>
         </h1>
-        <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10 leading-relaxed">
-          Berpengalaman sebagai teknisi dengan keterampilan coding, berfokus pada
-          <span className="text-primary"> analisis data</span> dan
-          <span className="text-accent"> cybersecurity</span>.
+        <p className="text-sm md:text-base text-foreground/90 font-medium mt-5 mb-3">{profile.role}</p>
+        <p className="text-sm md:text-base text-muted-foreground max-w-xl mx-auto mb-5 leading-7">
+          Berangkat dari perawatan mesin dan elektronika, kini mendalami Data Science serta mengeksplorasi Web3 dan AI.
         </p>
+        <p className="inline-flex items-center gap-2 text-xs text-muted-foreground mb-7"><MapPin size={14} />{profile.location}</p>
 
         <div className="flex flex-wrap gap-4 justify-center">
           <Button asChild size="lg" className="rounded-lg px-8 text-sm font-semibold bg-primary text-primary-foreground hover:bg-primary/90 glow-box">
-            <a href="#contact">Let's Connect</a>
+            <a href="#contact">Mari terhubung <ArrowUpRight size={16} /></a>
           </Button>
           <Button asChild variant="outline" size="lg" className="rounded-lg px-8 text-sm font-medium border-border text-foreground hover:border-primary hover:text-primary transition-all">
-            <a href="https://drive.google.com/file/d/1vwoboXSw24dzRqMf6cMY4ftYJisLl5-G/view?usp=sharing" target="_blank" rel="noopener noreferrer">
-              Download CV
+            <a href={profileDocument.url} download="Dhany-Catur-Prasetya-Profile.pdf" target="_blank" rel="noopener noreferrer">
+              <Download size={16} /> Unduh profil
             </a>
           </Button>
         </div>
+        <a href="#about" className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary mt-10">Kenali lebih dekat <ArrowDown size={14} /></a>
       </div>
     </section>
   );

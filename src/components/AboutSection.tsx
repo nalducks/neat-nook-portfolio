@@ -1,141 +1,45 @@
+import { ArrowUpRight, Award, BookOpen, Code2, GraduationCap, Wrench } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Code, Wrench, Award, GraduationCap, User } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-
-const skills = ["Komunikasi", "Analisis", "Kolaborasi", "Kreativitas", "Penyelesaian Masalah"];
-const languages = ["C++", "Python", "CSS", "JavaScript", "HTML"];
-const software = ["Excel", "Word", "Power Point", "Accurate 5", "VS Code", "Arduino"];
-
-const certificates = [
-  "1st LKS Wilker 2021",
-  "Data Engineering Dicoding",
-  "Data Fundamental Microsoft Azure",
-];
-
-const education = [
-  {
-    title: "Sarjana Teknik Informatika",
-    place: "Universitas Widyagama Malang",
-    period: "2024 - Saat ini",
-    desc: "Membuat ERD untuk meningkatkan kualitas desain basis data.",
-  },
-  {
-    title: "Teknik Elektronika",
-    place: "SMKN 1 Wonoasri",
-    period: "2018 - 2021",
-    desc: "Finalis LKS Tingkat Provinsi Jawa Timur 2021. Membuat project stopwatch dengan STM32 dan robotic line follower.",
-  },
-];
-
-const SkillBadge = ({ children }: { children: React.ReactNode }) => (
-  <Badge variant="secondary" className="bg-secondary/80 text-foreground/90 px-3 py-1.5 text-xs font-medium rounded-lg border border-border/60 hover:border-primary/40 hover:bg-primary/10 transition-all duration-300 cursor-default">
-    {children}
-  </Badge>
-);
-
-const SectionCard = ({ title, icon, children }: { title: string; icon: React.ReactNode; children: React.ReactNode }) => (
-  <div className="glass rounded-xl p-5 gradient-border hover:bg-card/80 transition-all duration-300">
-    <div className="flex items-center gap-2.5 mb-4">
-      <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-        {icon}
-      </div>
-      <h3 className="font-semibold text-foreground font-display text-sm tracking-wide">{title}</h3>
-    </div>
-    {children}
-  </div>
-);
+import { certificates, education, profile } from "@/data/profile";
 
 const AboutSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const { ref, isVisible } = useScrollAnimation(0.05);
   return (
-    <section id="about" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-      <div className="text-center mb-12">
-        <p className="text-primary text-sm font-medium tracking-widest uppercase mb-2">Get to know me</p>
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground font-display">About</h2>
-        <div className="w-16 h-1 bg-gradient-to-r from-primary to-accent rounded-full mx-auto mt-4" />
+    <section id="about" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 motion-reduce:transition-none ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+      <div className="section-heading">
+        <span className="section-eyebrow">01 / Tentang saya</span>
+        <h2>Dari elektronika,<br /><span className="text-muted-foreground">menuju dunia digital.</span></h2>
       </div>
-
-      <div className="grid lg:grid-cols-[1fr_1.2fr] gap-10 items-start">
-        {/* Left - Bio */}
-        <div className="glass rounded-xl p-6 gradient-border">
-          <div className="flex items-center gap-2.5 mb-5">
-            <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
-              <User size={16} />
-            </div>
-            <h3 className="font-semibold text-foreground font-display text-sm tracking-wide">Bio</h3>
+      <div className="grid lg:grid-cols-[1.1fr_1fr] gap-10 lg:gap-16">
+        <div>
+          <p className="text-foreground/90 text-base leading-8">Saya Dhany, profesional di bidang perawatan mesin dan administrasi dengan latar belakang teknik elektronika. Saya memadukan ketelitian teknis, pelayanan pelanggan, dan pengelolaan data dalam pekerjaan sehari-hari.</p>
+          <p className="text-muted-foreground text-sm leading-7 mt-5">Pengalaman saya mencakup analisis kerusakan, perbaikan mesin dan board, pengelolaan sparepart, serta pencatatan administrasi dan keuangan. Saat ini saya melanjutkan studi Informatika di Universitas Widyagama Malang dengan fokus Data Science.</p>
+          <div className="mt-8 pt-6 border-t border-border">
+            <p className="text-xs text-muted-foreground mb-3">Bidang yang ingin saya eksplorasi</p>
+            <div className="flex flex-wrap gap-2">{profile.interests.map(item => <Badge key={item} variant="secondary" className="rounded-md border border-primary/20 bg-primary/5 text-primary py-2 px-3">{item}</Badge>)}</div>
           </div>
-          <p className="text-muted-foreground leading-relaxed text-sm">
-            Dengan latar belakang di bidang elektronik dan teknologi, saya memiliki keahlian dalam administrasi dan perawatan mesin. Saat ini, saya bekerja sebagai Administrator dan Maintenance Technician, seperti Customer Service, Data Entry, Inventory Management, Troubleshooting, Repairing, Assembly and Fabrication.
-          </p>
-          <p className="text-muted-foreground leading-relaxed text-sm mt-4">
-            Saya tertarik untuk mengembangkan karir di dunia teknologi digital. Saya memiliki keahlian dalam bahasa pemrograman seperti C++, Python, JavaScript, HTML, dan CSS, serta telah mengembangkan situs web portofolio pribadi.
-          </p>
-
-          {/* Stats */}
-          <div className="grid grid-cols-3 gap-3 mt-6 pt-5 border-t border-border/50">
-            <div className="text-center">
-              <p className="text-xl font-bold text-primary font-display">3+</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Years Exp</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xl font-bold text-primary font-display">5+</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Projects</p>
-            </div>
-            <div className="text-center">
-              <p className="text-xl font-bold text-primary font-display">3</p>
-              <p className="text-[11px] text-muted-foreground mt-0.5">Certificates</p>
+          <div className="mt-10">
+            <h3 className="detail-heading"><GraduationCap size={18} /> Pendidikan</h3>
+            <div className="border-l border-border ml-2 mt-5 space-y-7">
+              {education.map(edu => <div key={edu.title} className="pl-6 relative"><span className="absolute -left-1 top-1.5 w-2 h-2 rounded-full bg-primary" /><p className="text-xs text-primary mb-2">{edu.period}</p><h4 className="text-base font-semibold">{edu.title}</h4><p className="text-sm text-foreground/80 mt-1">{edu.place}</p><p className="text-xs leading-6 text-muted-foreground mt-1">{edu.desc}</p></div>)}
             </div>
           </div>
         </div>
-
-        {/* Right - Details Grid */}
-        <div className="grid sm:grid-cols-2 gap-4">
-          <SectionCard title="Skills" icon={<User size={16} />}>
-            <div className="flex flex-wrap gap-2">
-              {skills.map((s) => <SkillBadge key={s}>{s}</SkillBadge>)}
-            </div>
-          </SectionCard>
-
-          <SectionCard title="Languages" icon={<Code size={16} />}>
-            <div className="flex flex-wrap gap-2">
-              {languages.map((l) => <SkillBadge key={l}>{l}</SkillBadge>)}
-            </div>
-          </SectionCard>
-
-          <SectionCard title="Software" icon={<Wrench size={16} />}>
-            <div className="flex flex-wrap gap-2">
-              {software.map((s) => <SkillBadge key={s}>{s}</SkillBadge>)}
-            </div>
-          </SectionCard>
-
-          <SectionCard title="Certificates" icon={<Award size={16} />}>
-            <div className="flex flex-wrap gap-2">
-              {certificates.map((c) => <SkillBadge key={c}>{c}</SkillBadge>)}
-            </div>
-            <a
-              href="https://drive.google.com/drive/folders/1EiWfN_RKm6xdpG-e56c8mFy9EwU0fjRW?usp=sharing"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-xs text-primary underline mt-3 inline-block hover:text-primary/80 transition-colors"
-            >
-              See All →
-            </a>
-          </SectionCard>
-
-          <div className="sm:col-span-2">
-            <SectionCard title="Education" icon={<GraduationCap size={16} />}>
-              <div className="grid sm:grid-cols-2 gap-4">
-                {education.map((edu) => (
-                  <div key={edu.title} className="bg-background/40 rounded-lg p-4 border border-border/30">
-                    <p className="font-medium text-foreground text-sm">{edu.title}</p>
-                    <p className="text-xs text-primary/80 font-medium mt-1">{edu.period}</p>
-                    <p className="text-xs text-muted-foreground mt-0.5">{edu.place}</p>
-                    <p className="text-xs text-muted-foreground mt-2 leading-relaxed">{edu.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </SectionCard>
+        <div className="space-y-7">
+          <div>
+            <h3 className="detail-heading"><Wrench size={18} /> Keahlian & perangkat</h3>
+            <div className="mt-4 flex flex-wrap gap-2">{["Maintenance & repair", "Analisis kerusakan", "Administrasi pelanggan", "Inventory sparepart", "Microsoft Word", "Excel", "Accurate", "Thunderbird"].map(item => <Badge key={item} variant="secondary" className="profile-badge">{item}</Badge>)}</div>
           </div>
+          <div className="flex gap-3 border-t border-border pt-5">
+            <Code2 size={18} className="text-primary shrink-0 mt-1" />
+            <div><h3 className="text-sm font-semibold">Pengembangan web</h3><p className="text-sm text-muted-foreground mt-2 leading-6">Belajar HTML hingga Fullstack dan mengembangkan situs portofolio pribadi.</p></div>
+          </div>
+          <div className="border-t border-border pt-5">
+            <div className="flex flex-wrap justify-between gap-3 items-center"><h3 className="detail-heading"><Award size={18} /> Sertifikasi</h3><a href="https://drive.google.com/drive/folders/1EiWfN_RKm6xdpG-e56c8mFy9EwU0fjRW?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-xs text-primary inline-flex items-center gap-1 hover:underline">Lihat koleksi <ArrowUpRight size={14} /></a></div>
+            <ul className="mt-3 divide-y divide-border/60">{certificates.map((cert, i) => <li key={cert} className="flex gap-3 py-3.5 text-sm leading-6"><span className="text-muted-foreground/60 text-xs pt-0.5 shrink-0">0{i + 1}</span><span className="min-w-0">{cert}</span></li>)}</ul>
+          </div>
+          <div className="flex gap-3 border-t border-border pt-5"><BookOpen size={18} className="text-primary shrink-0" /><div><h3 className="text-sm font-semibold">Bahasa Indonesia</h3><p className="text-xs text-muted-foreground mt-1">Professional Working Proficiency</p></div></div>
         </div>
       </div>
     </section>
