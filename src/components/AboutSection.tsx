@@ -1,7 +1,7 @@
-import { ArrowUpRight, Award, BookOpen, Code2, GraduationCap, Wrench } from "lucide-react";
+import { ArrowUpRight, Award, BookOpen, Code2, Wrench } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { certificates, education, profile } from "@/data/profile";
+import { certificates, profile } from "@/data/profile";
 
 const AboutSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.05);
@@ -18,12 +18,6 @@ const AboutSection = () => {
           <div className="mt-8 pt-6 border-t border-border">
             <p className="text-xs text-muted-foreground mb-3">Bidang yang ingin saya eksplorasi</p>
             <div className="flex flex-wrap gap-2">{profile.interests.map(item => <Badge key={item} variant="secondary" className="rounded-md border border-primary/20 bg-primary/5 text-primary py-2 px-3">{item}</Badge>)}</div>
-          </div>
-          <div className="mt-10">
-            <h3 className="detail-heading"><GraduationCap size={18} /> Pendidikan</h3>
-            <div className="border-l border-border ml-2 mt-5 space-y-7">
-              {education.map(edu => <div key={edu.title} className="pl-6 relative"><span className="absolute -left-1 top-1.5 w-2 h-2 rounded-full bg-primary" /><p className="text-xs text-primary mb-2">{edu.period}</p><h4 className="text-base font-semibold">{edu.title}</h4><p className="text-sm text-foreground/80 mt-1">{edu.place}</p><p className="text-xs leading-6 text-muted-foreground mt-1">{edu.desc}</p></div>)}
-            </div>
           </div>
         </div>
         <div className="space-y-7">
