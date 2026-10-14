@@ -1,70 +1,17 @@
-const experiences = [
-  {
-    company: "PT PERKAKAS SUMBER KARYA",
-    position: "Maintenance Technician and Administration",
-    duration: "January 2023 - Present",
-    tasks: [
-      "Melakukan perawatan mekanikal dan elektrikal pada mesin seperti las inverter, kompresor, dan jet cleaner.",
-      "Menangani penggantian suku cadang dan penyediaan spare part.",
-      "Menangani data administrasi, termasuk analisis kerusakan dan pembuatan estimasi biaya.",
-      "Mengelola laporan keuangan harian dan arsip data pelanggan.",
-    ],
-  },
-  {
-    company: "PT SEMESTA GEMILANG KARYATAMA",
-    position: "Maintenance Technician",
-    duration: "July 2021 - January 2023",
-    tasks: [
-      "Menyiapkan jadwal perawatan mesin industri dan melaporkan kebutuhan penggantian suku cadang.",
-      "Merakit mesin dan panel kontrol, termasuk panel pengujian motor 3 fasa.",
-      "Melakukan pengelasan pada mesin produksi untuk kebutuhan desain tambahan.",
-    ],
-  },
-  {
-    company: "PPPPTK BOE MALANG",
-    position: "Internship",
-    duration: "October 2019 - December 2019",
-    tasks: [
-      "Membantu persiapan peralatan pelatihan, pembuatan laporan harian dan akhir magang.",
-      "Mengembangkan program lampu lalu lintas menggunakan Arduino Uno.",
-    ],
-  },
-];
-
+import { ArrowUpRight, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
+import { experiences } from "@/data/profile";
 
 const ExperienceSection = () => {
-  const { ref, isVisible } = useScrollAnimation();
+  const { ref, isVisible } = useScrollAnimation(0.05);
   return (
-    <section id="experience" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
-      <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-2 text-center font-display">
-        Experience
-      </h2>
-      <div className="w-12 h-1 bg-primary rounded-full mx-auto mb-12" />
-
-      <div className="space-y-6">
-        {experiences.map((exp, index) => (
-          <div
-            key={exp.company}
-            className="glass rounded-2xl p-6 md:p-8 gradient-border group hover:glow-box transition-shadow duration-500"
-          >
-            <div className="flex items-start justify-between flex-wrap gap-2 mb-4">
-              <div>
-                <h3 className="text-lg font-bold text-foreground font-display">{exp.company}</h3>
-                <p className="text-sm text-primary font-medium mt-1">{exp.position}</p>
-              </div>
-              <span className="text-xs text-muted-foreground bg-secondary px-3 py-1 rounded-full">{exp.duration}</span>
-            </div>
-            <ul className="space-y-2">
-              {exp.tasks.map((task, i) => (
-                <li key={i} className="text-sm text-muted-foreground flex gap-2">
-                  <span className="text-primary mt-0.5">▹</span>
-                  <span>{task}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+    <section id="experience" ref={ref} className={`section-padding max-w-6xl mx-auto transition-all duration-700 motion-reduce:transition-none ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+      <div className="section-heading"><span className="section-eyebrow">02 / Perjalanan profesional</span><h2>Pengalaman yang<br /><span className="text-muted-foreground">membentuk keahlian.</span></h2></div>
+      <div className="border-t border-border">
+        {experiences.map((exp, i) => <article key={`${exp.company}-${exp.position}`} className="grid md:grid-cols-[0.8fr_1.4fr] gap-5 md:gap-12 py-8 md:py-10 border-b border-border">
+          <div><p className="text-xs text-primary mb-3">{exp.duration}</p><h3 className="font-semibold text-lg">{exp.company}</h3><p className="flex gap-1.5 items-center text-xs text-muted-foreground mt-3"><MapPin size={13} />{exp.location}</p>{i === 0 && <span className="inline-flex items-center gap-2 mt-4 text-xs text-primary"><span className="w-1.5 h-1.5 rounded-full bg-primary" />Posisi saat ini</span>}</div>
+          <div><h4 className="text-xl font-medium mb-4 flex justify-between gap-3">{exp.position}<ArrowUpRight size={20} className="text-muted-foreground shrink-0 mt-1" /></h4><ul className="space-y-3">{exp.tasks.map(task => <li key={task} className="text-sm text-muted-foreground leading-7 flex gap-3"><span className="text-primary shrink-0">—</span><span>{task}</span></li>)}</ul></div>
+        </article>)}
       </div>
     </section>
   );
