@@ -1,3 +1,3 @@
-- [ ] Sesuaikan profil, pengalaman, pendidikan, sertifikasi, dan kontak dengan Profile.pdf.
-- [ ] Rapikan tampilan portofolio dan tautkan unduhan dokumen profil.
-- [ ] Periksa tampilan dan tautan pada portofolio.
+- [x] Sesuaikan profil, pengalaman, pendidikan, sertifikasi, dan kontak dengan Profile.pdf.
+- [x] Rapikan tampilan portofolio dan tautkan unduhan dokumen profil.
+- [x] Periksa tampilan dan tautan pada portofolio.
