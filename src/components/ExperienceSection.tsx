@@ -1,6 +1,6 @@
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight, GraduationCap, MapPin } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
-import { experiences } from "@/data/profile";
+import { education, experiences } from "@/data/profile";
 
 const ExperienceSection = () => {
   const { ref, isVisible } = useScrollAnimation(0.05);
